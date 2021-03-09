@@ -2,13 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+using AppBanco.Library.Geral;
+
 namespace AppBanco.Library.Models
 {
-    public enum ESignal
-    {
-        In,
-        Out
-    }
+  
 
     [Table("tblTransacoes")]
     public class Transacao
@@ -22,7 +20,7 @@ namespace AppBanco.Library.Models
         public ESignal Sinal { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime DataTransacao { get; set; }
+        public DateTime DataTransacao { get; } = DateTime.UtcNow;
 
         [DataType(DataType.Currency)]
         public decimal Valor { get; set; }
@@ -30,5 +28,6 @@ namespace AppBanco.Library.Models
         //Relação
         public ContaBancaria Conta { get; set; }
         public int ContaID { get; set; } // FK 
+
     }
 }

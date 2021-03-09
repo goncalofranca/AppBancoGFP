@@ -8,8 +8,16 @@ namespace AppBanco.Library.Geral
         Crédito
 
     }
+    public enum ESignal
+    {
+        In,
+        Out
+    }
+ 
     public class Helpers
     {
+        public static decimal _MINIMUM_ABERTURA_CONTA_ = 50;
+        public static int __NR_MAX_CONTAS__ = 2;
         /// <summary>
         /// Validar o NIF em PT
         /// </summary>

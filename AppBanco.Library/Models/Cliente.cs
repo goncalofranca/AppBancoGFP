@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
+using AppBanco.Library.Geral;
 using AppBanco.Library.Geral.Annotations;
 
 namespace AppBanco.Library.Models
@@ -52,7 +53,23 @@ namespace AppBanco.Library.Models
 
         //Relacoes
         public ContaBancaria Conta { get; set; }
-        public IList<ContaBancaria> ContasBancarias { get; set; }
+        public IList<ContaBancaria> ContasBancarias { get; private set; } = new List<ContaBancaria>();
+
+        /// <summary>
+        /// Abre conta consoante o deposito que seja feito
+        /// </summary>
+        /// <param name="aDeposito">valor a depositar inicialmente</param>
+        public void AbrirConta(decimal aDeposito)
+        {
+            if(ContasBancarias.Count > Helpers.__NR_MAX_CONTAS__)
+            {
+                throw new NrContasExceptions($"Chegou ao Número Maximo de Contas: {Helpers.__NR_MAX_CONTAS__}");
+            }
+            else
+            {
+                ContasBancarias.Add(Conta.AbrirContaBancaria(this, aDeposito));
+            }
+        }
 
     }
 
